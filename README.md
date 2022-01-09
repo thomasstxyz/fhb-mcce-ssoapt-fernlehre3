@@ -11,6 +11,6 @@ Das Ziel dieser Übung ist die unter https://fhb-codelabs.github.io/codelabs/vir
 
 ## Vorgenommene Maßnahmen
 
-- Docker Container unter einem unprivilegierten Benutzer laufen lassen (623685fc43b55ebc7614f4ab155dc2741158268a).
+- [623685f](https://github.com/thomas2110781014/fhb-mcce-ssoapt-fernlehre3/commit/623685fc43b55ebc7614f4ab155dc2741158268a) Docker Container unter einem unprivilegierten Benutzer laufen lassen.
 
 TODO
