@@ -16,7 +16,7 @@ resource "aws_instance" "podtatohead-main" {
 
   vpc_security_group_ids = [aws_security_group.ingress-all-ssh.id, aws_security_group.ingress-all-http.id]
 
-  user_data = templatefile("${path.module}/templates/init_main.tpl", { container_image = "ghcr.io/fhb-codelabs/podtato-small-main", hats_host = aws_instance.podtatohead-hats.private_ip, arms_host = aws_instance.podtatohead-arms.private_ip, legs_host = aws_instance.podtatohead-legs.private_ip, podtato_version=var.podtato_version } )
+  user_data = templatefile("${path.module}/templates/init_main.tftpl", { container_image = "ghcr.io/fhb-codelabs/podtato-small-main", hats_host = aws_instance.podtatohead-hats.private_ip, arms_host = aws_instance.podtatohead-arms.private_ip, legs_host = aws_instance.podtatohead-legs.private_ip, podtato_version=var.podtato_version } )
 
   tags = {
     Name = "podtatohead-main"
@@ -30,7 +30,7 @@ resource "aws_instance" "podtatohead-legs" {
 
   vpc_security_group_ids = [aws_security_group.ingress-all-ssh.id, aws_security_group.ingress-all-http.id]
 
-  user_data = templatefile("${path.module}/templates/init.tpl", { container_image = "ghcr.io/fhb-codelabs/podtato-small-legs", podtato_version=var.podtato_version, left_version=var.left_leg_version, right_version=var.right_leg_version} )
+  user_data = templatefile("${path.module}/templates/init.tftpl", { container_image = "ghcr.io/fhb-codelabs/podtato-small-legs", podtato_version=var.podtato_version, left_version=var.left_leg_version, right_version=var.right_leg_version} )
 
   tags = {
     Name = "podtatohead-legs"
@@ -44,7 +44,7 @@ resource "aws_instance" "podtatohead-arms" {
 
   vpc_security_group_ids = [aws_security_group.ingress-all-ssh.id, aws_security_group.ingress-all-http.id]
 
-  user_data = templatefile("${path.module}/templates/init.tpl", { container_image = "ghcr.io/fhb-codelabs/podtato-small-arms", podtato_version=var.podtato_version, left_version=var.left_arm_version, right_version=var.right_arm_version } )
+  user_data = templatefile("${path.module}/templates/init.tftpl", { container_image = "ghcr.io/fhb-codelabs/podtato-small-arms", podtato_version=var.podtato_version, left_version=var.left_arm_version, right_version=var.right_arm_version } )
 
   tags = {
     Name = "podtatohead-arms"
@@ -58,7 +58,7 @@ resource "aws_instance" "podtatohead-hats" {
 
   vpc_security_group_ids = [aws_security_group.ingress-all-ssh.id, aws_security_group.ingress-all-http.id]
 
-  user_data = templatefile("${path.module}/templates/init_hats.tpl", { container_image = "ghcr.io/fhb-codelabs/podtato-small-hats", podtato_version=var.podtato_version, version=var.hats_version } )
+  user_data = templatefile("${path.module}/templates/init_hats.tftpl", { container_image = "ghcr.io/fhb-codelabs/podtato-small-hats", podtato_version=var.podtato_version, version=var.hats_version } )
 
   tags = {
     Name = "podtatohead-hats"
