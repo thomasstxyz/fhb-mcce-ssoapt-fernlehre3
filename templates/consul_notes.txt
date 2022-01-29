@@ -1,0 +1,50 @@
+consul join -wan ec2-18-204-230-10.compute-1.amazonaws.com
+
+# vi svc-httpd.json
+{
+    "service": {
+        "name": "httpd",
+        "port": 80,
+        "tags": ["httpd_connect"],
+        "check": {
+            "id": "httpd_port",
+            "name": "httpd port listening",
+            "tcp": "localhost:80",
+            "interval": "10s",
+            "timeout": "1s"
+        },
+        "connect": {
+        "sidecar_service": {}
+        }
+    }
+}
+
+consul services register svc-httpd.json
+
+# sudo yum install httpd
+
+curl -L https://func-e.io/install.sh | sudo bash -s -- -b /usr/local/bin
+func-e use 1.18.3
+sudo cp ~/.func-e/versions/1.18.3/bin/envoy /usr/local/bin/
+
+
+# vi con-httpd.json
+{
+    "service": {
+        "name": "web",
+        "port": 80,
+        "connect": {
+            "sidecar_service": {
+                "tags": ["webapp-proxy"],
+                "proxy": {
+                    "upstreams": [
+                        {
+                            "destination_name": "httpd",
+                            "local_bind_port": 8888
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}
