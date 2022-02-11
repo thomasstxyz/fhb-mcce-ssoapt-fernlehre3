@@ -11,6 +11,7 @@ data "aws_ami" "amazon-2" {
 
 # Resource for podtatohead-main
 resource "aws_instance" "podtatohead-main" {
+  key_name = "aws-aca"
   ami = data.aws_ami.amazon-2.id
   instance_type = "t3.micro"
 
@@ -25,6 +26,7 @@ resource "aws_instance" "podtatohead-main" {
 
 # Resource for podtatohead-legs
 resource "aws_instance" "podtatohead-legs" {
+  key_name = "aws-aca"
   ami = data.aws_ami.amazon-2.id
   instance_type = "t3.micro"
 
@@ -39,6 +41,7 @@ resource "aws_instance" "podtatohead-legs" {
 
 # Resource for podtatohead-arms
 resource "aws_instance" "podtatohead-arms" {
+  key_name = "aws-aca"
   ami = data.aws_ami.amazon-2.id
   instance_type = "t3.micro"
 
@@ -53,6 +56,7 @@ resource "aws_instance" "podtatohead-arms" {
 
 # Resource for podtatohead-hats
 resource "aws_instance" "podtatohead-hats" {
+  key_name = "aws-aca"
   ami = data.aws_ami.amazon-2.id
   instance_type = "t3.micro"
 
