@@ -13,3 +13,7 @@ output "application_name" {
 output "auth_callback_url" {
   value = "https://${aws_instance.podtatohead-main.public_ip}.nip.io/oauth2/callback"
 }
+
+output "podtato-url-insecure" {
+  value = "http://${aws_instance.podtatohead-main.public_ip}:8080"
+}
