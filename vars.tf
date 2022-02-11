@@ -21,3 +21,7 @@ variable "right_leg_version" {
 variable "left_leg_version" {
   type = string
 }
+
+variable "hats_checksum" {
+  type = string
+}
