@@ -62,7 +62,7 @@ resource "aws_instance" "podtatohead-hats" {
 
   vpc_security_group_ids = [aws_security_group.ingress-all-ssh.id, aws_security_group.ingress-all-http.id]
 
-  user_data = templatefile("${path.module}/templates/init_hats.tftpl", { container_image = "ghcr.io/fhb-codelabs/podtato-small-hats", podtato_version=var.podtato_version, version=var.hats_version } )
+  user_data = templatefile("${path.module}/templates/init_hats.tftpl", { container_image = "ghcr.io/fhb-codelabs/podtato-small-hats", podtato_version=var.podtato_version, version=var.hats_version, checksum_hat=var.hats_checksum } )
 
   tags = {
     Name = "podtatohead-hats"
