@@ -17,7 +17,7 @@ resource "aws_instance" "podtatohead-main" {
 
   vpc_security_group_ids = [aws_security_group.ingress-all-ssh.id, aws_security_group.ingress-all-http.id, aws_security_group.ingress-all-80.id, aws_security_group.ingress-all-443.id]
 
-  user_data = templatefile("${path.module}/templates/init_main.tftpl", { container_image = "ghcr.io/fhb-codelabs/podtato-small-main", hats_host = aws_instance.podtatohead-hats.private_ip, arms_host = aws_instance.podtatohead-arms.private_ip, legs_host = aws_instance.podtatohead-legs.private_ip, podtato_version=var.podtato_version } )
+  user_data = templatefile("${path.module}/templates/init_main.tftpl", { container_image = "ghcr.io/fhb-codelabs/podtato-small-main", hats_host = aws_instance.podtatohead-hats.private_ip, arms_host = aws_instance.podtatohead-arms.private_ip, legs_host = aws_instance.podtatohead-legs.private_ip, podtato_version=var.podtato_version, checksum_main = var.checksum_main } )
 
   tags = {
     Name = "podtatohead-main"
