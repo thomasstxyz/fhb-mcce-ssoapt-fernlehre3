@@ -4,4 +4,34 @@ sudo amazon-linux-extras install docker -y
 sudo service docker start
 sudo useradd unpriv-user
 sudo usermod -a -G docker unpriv-user
-sudo -u unpriv-user docker run -p 8080:8080 -e PORT=8080 -e VERSION=${version} -d ${container_image}:${podtato_version}
+
+
+sudo docker pull ${container_image}:${podtato_version}
+sudo docker images --digests --format '{{.Digest}}' ${container_image} > /home/unpriv-user/checksum_download
+sudo echo ${checksum_hat} > /home/unpriv-user/checksum_hat
+
+sudo echo 'sudo -u unpriv-user docker run -p 8080:8080 -e PORT=8080 -e VERSION=${version} -d ${container_image}:${podtato_version}' >> /home/unpriv-user/d-run
+
+
+cd /home/unpriv-user
+sudo chmod +x d-run
+
+
+cat << EOF > /home/unpriv-user/check
+#!/bin/bash
+
+var1=`cat /home/unpriv-user/checksum_hat`
+var2=`cat /home/unpriv-user/checksum_download`
+
+if [ \$var1 = \$var2 ]
+then
+echo "checksum match" >> /home/unpriv-user/checksum_check
+/home/unpriv-user/d-run
+else
+echo "no checksum match" >> /home/unpriv-user/checksum_check
+fi
+EOF
+
+cd /home/unpriv-user
+sudo chmod +x check
+sudo ./check
